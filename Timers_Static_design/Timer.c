@@ -23,7 +23,47 @@
  */
 ERROR_STATUS Timer_Init(Timer_cfg_s* Timer_cfg)
 {
+switch (Timer_CH_NO) {
+  case TIMER_CH0:
+  {
 
+
+
+
+
+
+
+
+
+  break;
+  }
+  case TIMER_CH1:
+  {
+
+
+
+
+
+
+
+
+
+  break;
+  }
+  case TIMER_CH2:
+  {
+
+
+
+
+
+
+
+
+
+    break;
+  }
+}
 
 
 
