@@ -12,8 +12,7 @@
 /************************************************************************/
 /*		         TIMER FUNCTIONS' IMPLEMENTATION		        */
 /************************************************************************/
-
-/**
+ /**
  * Input: Pointer to a structure contains the information needed to initialize the timer.
  * Output:
  * In/Out:
@@ -23,23 +22,128 @@
  */
 ERROR_STATUS Timer_Init(Timer_cfg_s* Timer_cfg)
 {
-switch (Timer_CH_NO) {
+switch (Timer_cfg->Timer_CH_NO) {
   case TIMER_CH0:
   {
 
+switch (Timer_cfg->Timer_Mode) {
+  case TIMER_MODE:
+  {
+      switch (Timer_cfg->Timer_Polling_Or_Interrupt) {
+        case TIMER_POLLING_MODE:
+        {
 
+          break;
+        }
+        case TIMER_INTERRUPT_MODE:
+        {
 
+          break;
+        }
+      }
 
+    break;
+  }
+  case COUNTER_RISING_MODE:
+  {
 
+        switch (Timer_cfg->Timer_Polling_Or_Interrupt) {
+          case TIMER_POLLING_MODE:
+          {
 
+            break;
+          }
+          case TIMER_INTERRUPT_MODE:
+          {
 
+            break;
+          }
+        }
+    break;
+  }
+  case COUNTER_FALLING_MODE:
+  {
 
+        switch (Timer_cfg->Timer_Polling_Or_Interrupt) {
+          case TIMER_POLLING_MODE:
+          {
 
+            break;
+          }
+          case TIMER_INTERRUPT_MODE:
+          {
+
+            break;
+          }
+        }
   break;
+  }
+}
+
+
+
+
+
+
+
+  return E_OK;
   }
   case TIMER_CH1:
   {
 
+    switch (Timer_cfg->Timer_Mode) {
+      case TIMER_MODE:
+      {
+
+            switch (Timer_cfg->Timer_Polling_Or_Interrupt) {
+              case TIMER_POLLING_MODE:
+              {
+
+                break;
+              }
+              case TIMER_INTERRUPT_MODE:
+              {
+
+                break;
+              }
+            }
+        break;
+      }
+      case COUNTER_RISING_MODE:
+      {
+
+            switch (Timer_cfg->Timer_Polling_Or_Interrupt) {
+              case TIMER_POLLING_MODE:
+              {
+
+                break;
+              }
+              case TIMER_INTERRUPT_MODE:
+              {
+
+                break;
+              }
+            }
+        break;
+      }
+      case COUNTER_FALLING_MODE:
+      {
+
+            switch (Timer_cfg->Timer_Polling_Or_Interrupt) {
+              case TIMER_POLLING_MODE:
+              {
+
+                break;
+              }
+              case TIMER_INTERRUPT_MODE:
+              {
+
+                break;
+              }
+            }
+      break;
+      }
+    }
 
 
 
@@ -47,22 +151,75 @@ switch (Timer_CH_NO) {
 
 
 
-
-  break;
+  return E_OK;
   }
   case TIMER_CH2:
   {
 
 
 
+    switch (Timer_cfg->Timer_Mode) {
+      case TIMER_MODE:
+      {
+
+            switch (Timer_cfg->Timer_Polling_Or_Interrupt) {
+              case TIMER_POLLING_MODE:
+              {
+
+                break;
+              }
+              case TIMER_INTERRUPT_MODE:
+              {
+
+                break;
+              }
+            }
+        break;
+      }
+      case COUNTER_RISING_MODE:
+      {
+
+            switch (Timer_cfg->Timer_Polling_Or_Interrupt) {
+              case TIMER_POLLING_MODE:
+              {
+
+                break;
+              }
+              case TIMER_INTERRUPT_MODE:
+              {
+
+                break;
+              }
+            }
+        break;
+      }
+      case COUNTER_FALLING_MODE:
+      {
+
+            switch (Timer_cfg->Timer_Polling_Or_Interrupt) {
+              case TIMER_POLLING_MODE:
+              {
+
+                break;
+              }
+              case TIMER_INTERRUPT_MODE:
+              {
+
+                break;
+              }
+            }
+      break;
+      }
+    }
 
 
 
 
 
-
-    break;
+  return E_OK;
   }
+  defult:
+  return E_NOK;
 }
 
 
