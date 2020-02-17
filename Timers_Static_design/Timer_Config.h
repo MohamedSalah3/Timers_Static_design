@@ -108,4 +108,8 @@ typedef unsigned char ERROR_STATUS;
 /***************************************************/
 /* OCF2 TOV2 ICF1 OCF1A OCF1B TOV1 OCF0 TOV0<<TIFRReg */
 /***************************************************/
+
+/********************************************************/
+/********Extern Configuration Structure******************/
+extern Timer_cfg_s Timer_Configuration;
 #endif /* TIMERSCONFIG_H_ */

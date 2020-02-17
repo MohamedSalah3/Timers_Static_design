@@ -67,6 +67,21 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="common_macros.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="DIO.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="DIO.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="DIO_config.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="DIO_config.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="Interrupts.c">
       <SubType>compile</SubType>
     </Compile>

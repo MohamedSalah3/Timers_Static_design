@@ -5,13 +5,16 @@
  *  Author: mo
  */ 
 
-
-#include <avr/io.h>
-
+#include "DIO.h"
+#include "avr/delay.h"
 int main(void)
-{
-    while(1)
+{uint8_t error,err;
+	 err=DIO_init (&Dio_configuration);
+      error=DIO_Write (GPIOB,UPPER_NIBBLE,HIGH);
+	while(1)
     {
-        //TODO:: Please write your application code 
+    	_delay_ms(1000);
+	  error=DIO_Toggle(GPIOB,UPPER_NIBBLE);
+	  
     }
 }
