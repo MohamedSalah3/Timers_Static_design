@@ -59,7 +59,7 @@ typedef struct Timer_cfg_s
 #define   T0_INTERRUPT_NORMAL     0x01
 #define   T0_INTERRUPT_DISABLE    0xFC
 
-#define   T1_INTERRUPT_DISABLE    0xFB
+#define   T1_INTERRUPT_DISABLE    0xC3
 #define 	T1_INTERRUPT_NORMAL     0x04
 #define   T1_NORMAL_MODE_CONFIG  0x0000
 

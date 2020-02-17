@@ -95,7 +95,7 @@
 #define TCCR2				*((reg_type8_t)(0x45))
 #define TCNT2				*((reg_type8_t)(0X44))
 #define OCR2				*((reg_type8_t)(0x43))
-
+#define ASSR        *((reg_type8_t)(0x42))
 /*UART*/
 #define UDR         *((reg_type8_t)(0x2C))             /*USART IO Data Register 159 $0C*/
 #define UCSRA       *((reg_type8_t)(0x2B))

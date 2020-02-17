@@ -218,19 +218,20 @@ switch (Timer_cfg->Timer_CH_NO) {
 
   case TIMER_CH2:
   {
-
+TCCR2 |=T2_NORMAL_MODE_CONFIG;
     switch (Timer_cfg->Timer_Mode) {
       case TIMER_MODE:
       {
-
             switch (Timer_cfg->Timer_Polling_Or_Interrupt) {
               case TIMER_POLLING_MODE:
               {
-
+                  TIMSK &= T2_INTERRUPT_DISABLE
                 break;
               }
               case TIMER_INTERRUPT_MODE:
               {
+                G_interrupt_Enable();
+                  TIMSK|=T2_INTERRUPT_NORMAL;
 
                 break;
               }
@@ -241,45 +242,45 @@ switch (Timer_cfg->Timer_CH_NO) {
       }
       case COUNTER_RISING_MODE:
       {
-
-            switch (Timer_cfg->Timer_Polling_Or_Interrupt) {
+          ASSR |=0x08;
+            switch (Timer_cfg->Timer_Polling_Or_Interrupt)
+            {
               case TIMER_POLLING_MODE:
               {
+                TIMSK &= T2_INTERRUPT_DISABLE
 
                 break;
               }
               case TIMER_INTERRUPT_MODE:
               {
-
+                G_interrupt_Enable();
+                  TIMSK|=T2_INTERRUPT_NORMAL;
                 break;
               }
+              case COUNTER_FALLING_MODE:
+              {
+                  ASSR |=0x08;
+                    switch (Timer_cfg->Timer_Polling_Or_Interrupt)
+                    {
+                      case TIMER_POLLING_MODE:
+                      {
+                        TIMSK &= T2_INTERRUPT_DISABLE
+
+                        break;
+                      }
+                      case TIMER_INTERRUPT_MODE:
+                      {
+                        G_interrupt_Enable();
+                          TIMSK|=T2_INTERRUPT_NORMAL;
+                        break;
+                      }
+
               defult :
               return E_NOK;
             }
         break;
       }
-      case COUNTER_FALLING_MODE:
-      {
-
-            switch (Timer_cfg->Timer_Polling_Or_Interrupt) {
-              case TIMER_POLLING_MODE:
-              {
-
-                break;
-              }
-              case TIMER_INTERRUPT_MODE:
-              {
-
-                break;
-              }
-              defult :
-              return E_NOK;
-            }
-      break;
-      }
-    }
-  return E_OK;
-  }
+        }
   defult:
   return E_NOK;
 }
@@ -485,7 +486,6 @@ case TIMER_CH2:{
   }
   break;
   }
-
   case TIMER_PRESCALER_256 :{
   if(Timer_Count < MAX2){
   TCCR2 |= TIMER_PRESCALER_256;
