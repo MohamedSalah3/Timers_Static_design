@@ -20,8 +20,11 @@
  * Description: Initiates the module.
  *
  */
+ static uint8_t prescaler_value=0;
+ 
 ERROR_STATUS Timer_Init(Timer_cfg_s* Timer_cfg)
 {
+prescaler_value=Timer_cfg->Timer_Prescaler;
 switch (Timer_cfg->Timer_CH_NO) {
 /*************************************************************************/
 /*                             TIMER 0                                   */
@@ -29,10 +32,11 @@ switch (Timer_cfg->Timer_CH_NO) {
     case TIMER_CH0:
         {
   TCCR0 |=T0_NORMAL_MODE;
+  
           switch (Timer_cfg->Timer_Mode) {
           case TIMER_MODE:
               {
-                switch (Timer_cfg->Timer_Polling_Or_Interrupt) 
+                switch (Timer_cfg->Timer_Polling_Or_Interrupt)
 				{
                     case TIMER_POLLING_MODE:
                         {/*Disable interrupts for T0 without effecting any other timer*/
@@ -48,7 +52,7 @@ switch (Timer_cfg->Timer_CH_NO) {
                                     TIMSK |= T0_INTERRUPT_NORMAL;
                                     break;
                                   }
-                                  defult :
+                                  default :
                                   return E_NOK;
                           }
 
@@ -68,7 +72,7 @@ switch (Timer_cfg->Timer_CH_NO) {
               /*without Disabling Global interrupt*/
                                             TIMSK &=T0_INTERRUPT_DISABLE;
                                             break;
-                                          
+
                                           case TIMER_INTERRUPT_MODE:
                                            /*Enable Global INTERRUPT
                                               Enable Timer0 interrupt
@@ -76,7 +80,7 @@ switch (Timer_cfg->Timer_CH_NO) {
                                               G_interrupt_Enable();
                                               TIMSK |= T0_INTERRUPT_NORMAL;
                                               break;
-                                          
+
                                           default :
                                           return E_NOK;
 										  break;
@@ -120,6 +124,7 @@ switch (Timer_cfg->Timer_CH_NO) {
                                     }
                                     return E_OK;
                                   }
+                                }
 /*************************************************************************/
 /*                             TIMER 1                                   */
 /*************************************************************************/
@@ -281,8 +286,8 @@ TCCR2 |=T2_NORMAL_MODE_CONFIG;
               return E_NOK;
             }
         break;
-      }
-        }
+            }
+            }
   default:
   return E_NOK;
 }
@@ -290,7 +295,10 @@ TCCR2 |=T2_NORMAL_MODE_CONFIG;
 
 
 }
+ }
 
+}
+}
 /*
  * Input:
  * Timer_CH_NO: The channel number of the timer needed to be started.
@@ -302,16 +310,17 @@ TCCR2 |=T2_NORMAL_MODE_CONFIG;
  *
  */
 ERROR_STATUS Timer_Start(uint8_t Timer_CH_NO, uint16_t Timer_Count){
+uint8_t Ret;
 switch (Timer_CH_NO) {
-case TIMER_CH0:{
-switch(Timer_cfg->Timer_Prescaler){
+case TIMER_CH0:{/***********************************************************************************************************************/
+switch(prescaler_value){
 case TIMER_PRESCALER_NO :{
 if(Timer_Count < MAX0){
 TCCR0 |=TIMER_PRESCALER_NO;
 TCNT0 =MAX0 - Timer_Count;
 }else
 {
-return E_NOK;
+Ret=E_NOK;
 }
 break;
 }
@@ -321,7 +330,7 @@ TCCR0 |=TIMER0_PRESCALER_8_CONFIG;
 TCNT0 =MAX0 - Timer_Count;
 }else
 {
-return E_NOK;
+Ret=E_NOK;
 }
 break;
 }
@@ -331,7 +340,7 @@ TCCR0 |=TIMER0_PRESCALER_64_CONFIG;
 TCNT0 =MAX0 - Timer_Count;
 }else
 {
-return E_NOK;
+Ret=E_NOK;
 }
 break;
 }
@@ -341,7 +350,7 @@ TCCR0 |=TIMER0_PRESCALER_256_CONFIG;
 TCNT0 =MAX0 - Timer_Count;
 }else
 {
-return E_NOK;
+Ret=E_NOK;
 }
 break;
 }
@@ -351,27 +360,29 @@ TCCR0 |=TIMER0_PRESCALER_1024_CONFIG;
 TCNT0 =MAX0 - Timer_Count;
 }else
 {
-return E_NOK;
+Ret=E_NOK;
 }
 break;
 
 }
 default :
-return E_NOK;
+Ret=E_NOK;
+break;
 }
 
-return E_OK;
+Ret=E_OK;
+break;
 }
 case TIMER_CH1:{
 
-  switch(Timer_cfg->Timer_Prescaler){
+  switch(prescaler_value){
   case TIMER_PRESCALER_NO :{
   if(Timer_Count < MAX1){
   TCCR1 |=TIMER_PRESCALER_NO;
   TCNT1 =MAX1 - Timer_Count;
   }else
   {
-  return E_NOK;
+  Ret=E_NOK;
   }
   break;
   }
@@ -381,7 +392,7 @@ case TIMER_CH1:{
   TCNT1 =MAX1 - Timer_Count;
   }else
   {
-  return E_NOK;
+  Ret= E_NOK;
   }
   break;
   }
@@ -391,7 +402,7 @@ case TIMER_CH1:{
   TCNT1 =MAX1 - Timer_Count;
   }else
   {
-  return E_NOK;
+  Ret= E_NOK;
   }
   break;
   }
@@ -401,7 +412,8 @@ case TIMER_CH1:{
   TCNT1 =MAX1 - Timer_Count;
   }else
   {
-  return E_NOK;
+  Ret= E_NOK;
+
   }
   break;
   }
@@ -411,33 +423,43 @@ case TIMER_CH1:{
   TCNT1 =MAX1 - Timer_Count;
   }else
   {
-  return E_NOK;
+  Ret= E_NOK;
+
   }
   break;
 
   }
   default :
-  return E_NOK;
+  Ret= E_NOK;
+  break;
   }
 
 
-  return E_OK;
+  Ret= E_OK;
+	break;
 }
-case TIMER_CH2:{
-  switch(Timer_cfg->Timer_Prescaler){
-    case TIMER_PRESCALER_NO :
-    {
-      if(Timer_Count < MAX0){
-          TCCR2 |= TIMER_PRESCALER_NO;
-          TCNT2 = MAX2 - Timer_Count;
+case TIMER_CH2:
+	{
+  
+		switch(prescaler_value){
+   
+		  case TIMER_PRESCALER_NO :
+			{
+    
+				if(Timer_Count < MAX0){
+     
+			      TCCR2 |= TIMER_PRESCALER_NO;
+		      
+				  TCNT2 = MAX2 - Timer_Count;
                             }
                             else
                              {
-                               return E_NOK;
-                             }
-         break;
-    }
-  case TIMER_PRESCALER_8 :
+                               Ret=E_NOK;
+							 }
+			break;
+			}
+
+case TIMER_PRESCALER_8 :
   {
           if(Timer_Count < MAX0)
             {
@@ -446,8 +468,8 @@ case TIMER_CH2:{
             }
             else
             {
-             return E_NOK;
-            }
+             Ret=E_NOK;
+		    }
        break;
   }
   case TIMER_PRESCALER_32:
@@ -459,8 +481,8 @@ case TIMER_CH2:{
         }
         else
         {
-    return E_NOK;
-    }
+    Ret=E_NOK;
+  }
 
     break;
   }
@@ -473,7 +495,7 @@ case TIMER_CH2:{
       }
       else
       {
-  return E_NOK;
+  Ret=E_NOK;
   }
   break;
   }
@@ -483,8 +505,8 @@ case TIMER_CH2:{
   TCNT2 =MAX2 - Timer_Count;
   }else
   {
-  return E_NOK;
-  }
+  Ret= E_NOK;
+    }
   break;
   }
   case TIMER_PRESCALER_256 :{
@@ -493,7 +515,8 @@ case TIMER_CH2:{
   TCNT2 =MAX2 - Timer_Count;
   }else
   {
-  return E_NOK;
+  Ret= E_NOK;
+
   }
   break;
   }
@@ -503,20 +526,23 @@ case TIMER_CH2:{
   TCNT2 =MAX2 - Timer_Count;
   }else
   {
-  return E_NOK;
+ Ret= E_NOK;
+
   }
   break;
-
   }
   default :
-  return E_NOK;
+  Ret= E_NOK;
+
   }
-return E_OK;
+Ret=E_OK;
+break;
 }
 default:
-return E_NOK;
+Ret= E_NOK;
+break;
 }
-
+return Ret;
 
 }
 /**
@@ -529,28 +555,32 @@ return E_NOK;
  *
  */
 ERROR_STATUS Timer_Stop(uint8_t Timer_CH_NO)
-{
+{uint8_t Ret;
 switch (Timer_CH_NO) {
   case TIMER_CH0:
   {
-TCCR0 &=0xF8;
-  return E_OK;
+		TCCR0 &=0xF8;
+		Ret=E_OK;
+		break;
   }
   case TIMER_CH1:
   {
-TCCR1 &=0xFFF8;
-  return E_OK;
+	     TCCR1 &=0xFFF8;
+		 Ret=E_OK;
+		 break;
   }
-   case TIMER_CH2:
+  case TIMER_CH2:
     {
-TCCR2 &= 0xF8;
-  return E_OK;
+		 TCCR2 &= 0xF8;
+		 Ret=E_OK;
+		 break;
     }
   default :
-  return E_NOK;
+  Ret=E_NOK;
+  break;
 }
 
-
+return Ret;
 
 }
 /**
@@ -597,25 +627,30 @@ ERROR_STATUS Timer_GetStatus(uint8_t Timer_CH_NO,uint8_t* Data)
  */
 ERROR_STATUS Timer_GetValue(uint8_t Timer_CH_NO, uint16_t* Data)
 {
-  switch (Timer_CH_NO) {
-    case TIMER_CH0:
-    {					
-		*Data =TCNT0;
-			return E_OK;
-	}			
-    case TIMER_CH1:
-    {
-      *Data=TCNT1;
-    return E_OK;
-    }
-     case TIMER_CH2:
-      {
-  *Data=TCNT2;
-    return E_OK;
-      }
-    default :
-    return E_NOK;
-	 }
-
+	uint8_t Ret=0;
+	switch (Timer_CH_NO) {
+		case TIMER_CH0:
+		{
+			*Data =TCNT0;
+			Ret= E_OK;
+			break;
+		}
+		case TIMER_CH1:
+		{
+			*Data =TCNT1;
+			Ret= E_OK;
+			break;
+		}
+		case TIMER_CH2:
+		{
+			*Data =TCNT2;
+			Ret = E_OK;
+			break;
+		}
+		default :
+		Ret= E_NOK;
+		break;
+	}
+return Ret;
 
 }

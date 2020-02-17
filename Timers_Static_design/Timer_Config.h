@@ -94,7 +94,7 @@ typedef struct Timer_cfg_s
 #define TIMER1_PRESCALER_8_CONFIG    2
 #define TIMER1_PRESCALER_NO_CONFIG   1
 /***********************************************/
-#define  ERROR_STATUS uint8_t
+typedef unsigned char ERROR_STATUS;   
 #define E_OK   0
 #define E_NOK  1
 #define TOV0      0
