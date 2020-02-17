@@ -59,7 +59,7 @@ switch (Timer_cfg->Timer_CH_NO) {
 
                           case COUNTER_RISING_MODE:
                             {
-                                  TCCR0 |=COUNTER_RISING_MODE_CONFIG;
+                                  TCCR0 |=T0_COUNTER_RISING_MODE_CONFIG;
                                     switch (Timer_cfg->Timer_Polling_Or_Interrupt) {
                                         case TIMER_POLLING_MODE:
                                           {
@@ -87,7 +87,7 @@ switch (Timer_cfg->Timer_CH_NO) {
 
                                     case COUNTER_FALLING_MODE:
                                     {
-                                        TCCR0 |=COUNTER_FALLING_MODE_CONFIG;
+                                        TCCR0 |=T0_COUNTER_FALLING_MODE_CONFIG;
                                           switch (Timer_cfg->Timer_Polling_Or_Interrupt) {
                                               case TIMER_POLLING_MODE:
                                                 {
@@ -129,16 +129,23 @@ switch (Timer_cfg->Timer_CH_NO) {
     {
       case TIMER_MODE:
       {
-
-            switch (Timer_cfg->Timer_Polling_Or_Interrupt) {
+        TCCR1 = T1_NORMAL_MODE_CONFIG;
+              switch (Timer_cfg->Timer_Polling_Or_Interrupt) {
               case TIMER_POLLING_MODE:
-              {
+                {
+                  /*Disable interrupts for T1 without effecting any other timer*/
+                   /*without Disabling Global interrupt*/
+                  TIMSK &=T1_INTERRUPT_DISABLE;
 
                 break;
               }
               case TIMER_INTERRUPT_MODE:
               {
-
+                G_interrupt_Enable();
+                TIMSK |=T1_INTERRUPT_NORMAL;
+                /*Enable Global INTERRUPT
+                Enable Timer0 interrupt
+                */
                 break;
               }
               defult :
@@ -148,16 +155,24 @@ switch (Timer_cfg->Timer_CH_NO) {
       }
       case COUNTER_RISING_MODE:
       {
+            TCCR1|=T1_COUNTER_RISING_MODE_CONFIG;
 
             switch (Timer_cfg->Timer_Polling_Or_Interrupt) {
               case TIMER_POLLING_MODE:
               {
+                /*Disable interrupts for T1 without effecting any other timer*/
+                 /*without Disabling Global interrupt*/
+                TIMSK &=T1_INTERRUPT_DISABLE;
 
                 break;
               }
               case TIMER_INTERRUPT_MODE:
               {
-
+                G_interrupt_Enable();
+                TIMSK |=T1_INTERRUPT_NORMAL;
+                /*Enable Global INTERRUPT
+                Enable Timer0 interrupt
+                */
                 break;
               }
               defult:
@@ -167,15 +182,22 @@ switch (Timer_cfg->Timer_CH_NO) {
       }
       case COUNTER_FALLING_MODE:
       {
-
+            TCCR1|=T1_COUNTER_FALLING_MODE_CONFIG;
             switch (Timer_cfg->Timer_Polling_Or_Interrupt) {
               case TIMER_POLLING_MODE:
               {
-
+                /*Disable interrupts for T1 without effecting any other timer*/
+                 /*without Disabling Global interrupt*/
+                TIMSK &=T1_INTERRUPT_DISABLE;
                 break;
               }
               case TIMER_INTERRUPT_MODE:
               {
+                G_interrupt_Enable();
+                TIMSK |=T1_INTERRUPT_NORMAL;
+                /*Enable Global INTERRUPT
+                Enable Timer0 interrupt
+                */
 
                 break;
               }
@@ -196,8 +218,6 @@ switch (Timer_cfg->Timer_CH_NO) {
 
   case TIMER_CH2:
   {
-
-
 
     switch (Timer_cfg->Timer_Mode) {
       case TIMER_MODE:
@@ -342,6 +362,61 @@ return E_OK;
 }
 case TIMER_CH1:{
 
+  switch(Timer_cfg->Timer_Prescaler){
+  case TIMER_PRESCALER_NO :{
+  if(Timer_Count < MAX01{
+  TCCR1 |=TIMER_PRESCALER_NO;
+  TCNT1 =MAX1 - Timer_count;
+  }else
+  {
+  return E_NOK;
+  }
+  break;
+  }
+  case TIMER_PRESCALER_8 :{
+  if(Timer_Count < MAX1){
+  TCCR1 |=TIMER1_PRESCALER_8_CONFIG;
+  TCNT1 =MAX1 - Timer_count;
+  }else
+  {
+  return E_NOK;
+  }
+  break;
+  }
+  case TIMER_PRESCALER_64 :{
+  if(Timer_Count < MAX1){
+  TCCR1 |=TIMER1_PRESCALER_64_CONFIG;
+  TCNT1 =MAX1 - Timer_count;
+  }else
+  {
+  return E_NOK;
+  }
+  break;
+  }
+  case TIMER_PRESCALER_256 :{
+  if(Timer_Count < MAX1){
+  TCCR1 |=TIMER1_PRESCALER_256_CONFIG;
+  TCNT1 =MAX1 - Timer_count;
+  }else
+  {
+  return E_NOK;
+  }
+  break;
+  }
+  case TIMER_PRESCALER_1024 :{
+  if(Timer_Count < MAX1){
+  TCCR1 |=TIMER1_PRESCALER_1024_CONFIG;
+  TCNT1 =MAX1 - Timer_count;
+  }else
+  {
+  return E_NOK;
+  }
+  break;
+
+  }
+  defult :
+  return E_NOK;
+  }
 
 
   return E_OK;
@@ -351,8 +426,8 @@ case TIMER_CH2:{
     case TIMER_PRESCALER_NO :
     {
       if(Timer_Count < MAX0){
-          TCCR0 |= TIMER_PRESCALER_NO;
-          TCNT0 = MAX0 - Timer_count;
+          TCCR2 |= TIMER_PRESCALER_NO;
+          TCNT2 = MAX2 - Timer_count;
                             }
                             else
                              {
@@ -364,8 +439,8 @@ case TIMER_CH2:{
   {
           if(Timer_Count < MAX0)
             {
-           TCCR0 |=TIMER0_PRESCALER_8_CONFIG;
-           TCNT0 =MAX0 - Timer_count;
+           TCCR2 |=TIMER_PRESCALER_8;
+           TCNT2 =MAX2 - Timer_count;
             }
             else
             {
@@ -373,12 +448,26 @@ case TIMER_CH2:{
             }
        break;
   }
+  case TIMER_PRESCALER_32:
+  {
+    if(Timer_Count < MAX1)
+         {
+         TCCR2 |=TIMER_PRESCALER_32;
+         TCNT2 =MAX2 - Timer_count;
+        }
+        else
+        {
+    return E_NOK;
+    }
+
+    break;
+  }
   case TIMER_PRESCALER_64 :
   {
-       if(Timer_Count < MAX0)
+       if(Timer_Count < MAX2)
        {
-       TCCR0 |=TIMER0_PRESCALER_64_CONFIG;
-       TCNT0 =MAX0 - Timer_count;
+       TCCR2 |=TIMER_PRESCALER_64;
+       TCNT2 =MAX2 - Timer_count;
       }
       else
       {
@@ -386,10 +475,21 @@ case TIMER_CH2:{
   }
   break;
   }
+  case TIMER_PRESCALER_128 :{
+  if(Timer_Count < MAX2){
+  TCCR2 |= TIMER_PRESCALER_128;
+  TCNT2 =MAX2 - Timer_count;
+  }else
+  {
+  return E_NOK;
+  }
+  break;
+  }
+
   case TIMER_PRESCALER_256 :{
-  if(Timer_Count < MAX0){
-  TCCR0 |=TIMER0_PRESCALER_256_CONFIG;
-  TCNT0 =MAX0 - Timer_count;
+  if(Timer_Count < MAX2){
+  TCCR2 |= TIMER_PRESCALER_256;
+  TCNT2 =MAX2 - Timer_count;
   }else
   {
   return E_NOK;
@@ -397,9 +497,9 @@ case TIMER_CH2:{
   break;
   }
   case TIMER_PRESCALER_1024 :{
-  if(Timer_Count < MAX0){
-  TCCR0 |=TIMER0_PRESCALER_1024_CONFIG;
-  TCNT0 =MAX0 - Timer_count;
+  if(Timer_Count < MAX2){
+  TCCR2 |=TIMER_PRESCALER_1024;
+  TCNT2 =MAX2 - Timer_count;
   }else
   {
   return E_NOK;
@@ -462,13 +562,27 @@ TCCR2 &= 0xF8;
  * Description: This function is used to return if the flag of the timer is raised or not.
  *
  */
-ERROR_STATUS Timer_GetStatus(uint8_t Timer_CH_NO,boolen* Data)
+ERROR_STATUS Timer_GetStatus(uint8_t Timer_CH_NO,uint8_t* Data)
 {
-
-
-
-
-
+  switch (Timer_CH_NO) {
+    case TIMER_CH0:
+    {
+  *Data =((TIFR>>TOV0)&1);
+    return E_OK;
+    }
+    case TIMER_CH1:
+    {
+    *Data =((TIFR>>TOV1)&1);
+    return E_OK;
+    }
+     case TIMER_CH2:
+      {
+  *Data =((TIFR>>TOV2)&1);
+    return E_OK;
+      }
+    defult :
+    return E_NOK;
+  }
 }
 /**
  * Input:

@@ -53,8 +53,17 @@
 #define TCCR0				*((reg_type8_t)(0x53))
 #define TCNT0				*((reg_type8_t)(0x52))
 #define OCR0				*((reg_type8_t)(0x5C))
-#define TOV0 0
-
+#define TOV0      0
+#define OCF0      1
+#define TOV1      2
+#define OCF1B     3
+#define OCF1A     4
+#define ICF1      5
+#define TOV2      6
+#define OCF2      7
+/***************************************************/
+/* OCF2 TOV2 ICF1 OCF1A OCF1B TOV1 OCF0 TOV0<<TIFRReg */
+/***************************************************/
 /*
  * Timer 1 Registers
  */

@@ -42,8 +42,14 @@ typedef struct Timer_cfg_s
 #define		COUNTER_RISING_MODE					1
 #define		COUNTER_FALLING_MODE				2
 
-#define COUNTER_RISING_MODE_CONFIG  0x0D
-#define COUNTER_FALLING_MODE_CONFIG  0x0C
+
+#define T0_COUNTER_RISING_MODE_CONFIG  0x0D
+#define T0_COUNTER_FALLING_MODE_CONFIG  0x0C
+
+
+#define T1_COUNTER_RISING_MODE_CONFIG  0x0007
+#define T1_COUNTER_FALLING_MODE_CONFIG  0x0006
+
 
 #define   T0_NORMAL_MODE              0
 
@@ -52,6 +58,11 @@ typedef struct Timer_cfg_s
 
 #define   T0_INTERRUPT_NORMAL     0x01
 #define   T0_INTERRUPT_DISABLE    0xFC
+
+#define   T1_INTERRUPT_DISABLE    0xFB
+#define 	T1_INTERRUPT_NORMAL     0x04
+#define   T1_NORMAL_MODE_CONFIG  0x0000
+
 
 #define		TIMER_NO_CLOCK					0
 #define		TIMER_PRESCALER_NO				1
@@ -69,13 +80,25 @@ typedef struct Timer_cfg_s
 
 /***********************************************/
 
-typedef enum ERROR_STATUS{
-	E_OK=0,
-	E_NOK=1
-	}ERROR_STATUS;
-
-typedef enum boolen{
-T=1,
-F=0
-}boolen;
+/***********************************************/
+#define TIMER1_PRESCALER_1024_CONFIG 5
+#define	TIMER1_PRESCALER_256_CONFIG	 4
+#define TIMER1_PRESCALER_64_CONFIG   3
+#define TIMER1_PRESCALER_8_CONFIG    2
+#define TIMER1_PRESCALER_NO_CONFIG   1
+/***********************************************/
+#define  ERROR_STATUS uint8_t;
+#define E_OK   0
+#define E_NOK  1
+#define TOV0      0
+#define OCF0      1
+#define TOV1      2
+#define OCF1B     3
+#define OCF1A     4
+#define ICF1      5
+#define TOV2      6
+#define OCF2      7
+/***************************************************/
+/* OCF2 TOV2 ICF1 OCF1A OCF1B TOV1 OCF0 TOV0<<TIFRReg */
+/***************************************************/
 #endif /* TIMERSCONFIG_H_ */
