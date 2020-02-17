@@ -12,6 +12,5 @@ Timer_cfg_s Timer_Configuration =
 TIMER_CH0,
 COUNTER_RISING_MODE,
 TIMER_POLLING_MODE,
-TIMER_NO_CLOCK,/*so it will not start untill we call timer start function*/
-
+TIMER_PRESCALER_NO,/*it will not start untill we call timer start function*/
 } ;

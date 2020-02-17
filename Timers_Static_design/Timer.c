@@ -23,75 +23,110 @@
 ERROR_STATUS Timer_Init(Timer_cfg_s* Timer_cfg)
 {
 switch (Timer_cfg->Timer_CH_NO) {
-  case TIMER_CH0:
-  {
+/*************************************************************************/
+/*                             TIMER 0                                   */
+/*************************************************************************/
+    case TIMER_CH0:
+        {
+  TCCR0 |=T0_NORMAL_MODE;
+          switch (Timer_cfg->Timer_Mode) {
+          case TIMER_MODE:
+              {
+                switch (Timer_cfg->Timer_Polling_Or_Interrupt) {
+                    case TIMER_POLLING_MODE:
+                        {/*Disable interrupts for T0 without effecting any other timer*/
+                         /*without Disabling Global interrupt*/
+                        TIMSK &=T0_INTERRUPT_DISABLE;
+                            break;
+                         }
+                                  case TIMER_INTERRUPT_MODE:
+                                  { /*Enable Global INTERRUPT
+                                    Enable Timer0 interrupt
+                                    */
+                                    G_interrupt_Enable();
+                                    TIMSK |= T0_INTERRUPT_NORMAL;
+                                    break;
+                                  }
+                                  defult :
+                                  return E_NOK
+                                     }
 
-switch (Timer_cfg->Timer_Mode) {
-  case TIMER_MODE:
-  {
-      switch (Timer_cfg->Timer_Polling_Or_Interrupt) {
-        case TIMER_POLLING_MODE:
+                          break;
+                          }
+/*************************************************************************/
+/*                             TIMER 0 As a COUNTER_RISING_MODE          */
+/*************************************************************************/
+
+                          case COUNTER_RISING_MODE:
+                            {
+                                  TCCR0 |=COUNTER_RISING_MODE_CONFIG;
+                                    switch (Timer_cfg->Timer_Polling_Or_Interrupt) {
+                                        case TIMER_POLLING_MODE:
+                                          {
+            /*Disable interrupts for T0 without effecting any other timer*/
+              /*without Disabling Global interrupt*/
+                                            TIMSK &=T0_INTERRUPT_DISABLE;
+                                            break;
+                                          }
+                                          case TIMER_INTERRUPT_MODE:
+                                          { /*Enable Global INTERRUPT
+                                              Enable Timer0 interrupt
+                                              */
+                                              G_interrupt_Enable();
+                                              TIMSK |= T0_INTERRUPT_NORMAL;
+                                              break;
+                                          }
+                                          defult :
+                                          return E_NOK;
+                                        }
+                                    break;
+                                    }
+/*************************************************************************/
+/*                             TIMER 0 As a COUNTER_FALLING_MODE         */
+/*************************************************************************/
+
+                                    case COUNTER_FALLING_MODE:
+                                    {
+                                        TCCR0 |=COUNTER_FALLING_MODE_CONFIG;
+                                          switch (Timer_cfg->Timer_Polling_Or_Interrupt) {
+                                              case TIMER_POLLING_MODE:
+                                                {
+
+            /*Disable interrupts for T0 without effecting any other timer*/
+                /*without Disabling Global interrupt*/
+                                                  TIMSK &=T0_INTERRUPT_DISABLE;
+
+                                                  break;
+                                                }
+                                                case TIMER_INTERRUPT_MODE:
+                                                  {
+                                                    /*Enable Global INTERRUPT
+                                                    Enable Timer0 interrupt
+                                                    */
+                                                    G_interrupt_Enable();
+                                                    TIMSK |= T0_INTERRUPT_NORMAL;
+
+                                                    break;
+                                                  }
+                                                  defult:
+                                                  return E_NOK;
+                                                }
+                                      break;
+                                      }
+                                      defult:
+                                      return E_NOK;
+                                    }
+                                    return E_OK;
+                                  }
+/*************************************************************************/
+/*                             TIMER 1                                   */
+/*************************************************************************/
+
+    case TIMER_CH1:
         {
 
-          break;
-        }
-        case TIMER_INTERRUPT_MODE:
-        {
-
-          break;
-        }
-      }
-
-    break;
-  }
-  case COUNTER_RISING_MODE:
-  {
-
-        switch (Timer_cfg->Timer_Polling_Or_Interrupt) {
-          case TIMER_POLLING_MODE:
-          {
-
-            break;
-          }
-          case TIMER_INTERRUPT_MODE:
-          {
-
-            break;
-          }
-        }
-    break;
-  }
-  case COUNTER_FALLING_MODE:
-  {
-
-        switch (Timer_cfg->Timer_Polling_Or_Interrupt) {
-          case TIMER_POLLING_MODE:
-          {
-
-            break;
-          }
-          case TIMER_INTERRUPT_MODE:
-          {
-
-            break;
-          }
-        }
-  break;
-  }
-}
-
-
-
-
-
-
-
-  return E_OK;
-  }
-  case TIMER_CH1:
-  {
-
-    switch (Timer_cfg->Timer_Mode) {
+    switch (Timer_cfg->Timer_Mode)
+    {
       case TIMER_MODE:
       {
 
@@ -106,6 +141,8 @@ switch (Timer_cfg->Timer_Mode) {
 
                 break;
               }
+              defult :
+              return E_NOK;
             }
         break;
       }
@@ -123,6 +160,8 @@ switch (Timer_cfg->Timer_Mode) {
 
                 break;
               }
+              defult:
+              return E_NOK;
             }
         break;
       }
@@ -140,19 +179,21 @@ switch (Timer_cfg->Timer_Mode) {
 
                 break;
               }
+              defult :
+              return E_NOK;
             }
       break;
       }
+      defult :
+      return E_NOK;
     }
-
-
-
-
-
-
 
   return E_OK;
   }
+  /*************************************************************************/
+  /*                             TIMER 2                                   */
+  /*************************************************************************/
+
   case TIMER_CH2:
   {
 
@@ -173,6 +214,8 @@ switch (Timer_cfg->Timer_Mode) {
 
                 break;
               }
+              defult :
+              return E_NOK;
             }
         break;
       }
@@ -190,6 +233,8 @@ switch (Timer_cfg->Timer_Mode) {
 
                 break;
               }
+              defult :
+              return E_NOK;
             }
         break;
       }
@@ -207,15 +252,12 @@ switch (Timer_cfg->Timer_Mode) {
 
                 break;
               }
+              defult :
+              return E_NOK;
             }
       break;
       }
     }
-
-
-
-
-
   return E_OK;
   }
   defult:
@@ -226,10 +268,10 @@ switch (Timer_cfg->Timer_Mode) {
 
 }
 
-/**
+/*
  * Input:
- * 	Timer_CH_NO: The channel number of the timer needed to be started.
- *	Timer_Count: The start value of the timer.
+ * Timer_CH_NO: The channel number of the timer needed to be started.
+ * Timer_Count: The start value of the timer.
  * Output:
  * In/Out:
  * Return: The error status of the function.
@@ -238,7 +280,141 @@ switch (Timer_cfg->Timer_Mode) {
  */
 ERROR_STATUS Timer_Start(uint8_t Timer_CH_NO, uint16_t Timer_Count)
 {
+switch (Timer_CH_NO) {
+case TIMER_CH0:{
+switch(Timer_cfg->Timer_Prescaler){
+case TIMER_PRESCALER_NO :{
+if(Timer_Count < MAX0){
+TCCR0 |=TIMER_PRESCALER_NO;
+TCNT0 =MAX0 - Timer_count;
+}else
+{
+return E_NOK;
+}
+break;
+}
+case TIMER_PRESCALER_8 :{
+if(Timer_Count < MAX0){
+TCCR0 |=TIMER0_PRESCALER_8_CONFIG;
+TCNT0 =MAX0 - Timer_count;
+}else
+{
+return E_NOK;
+}
+break;
+}
+case TIMER_PRESCALER_64 :{
+if(Timer_Count < MAX0){
+TCCR0 |=TIMER0_PRESCALER_64_CONFIG;
+TCNT0 =MAX0 - Timer_count;
+}else
+{
+return E_NOK;
+}
+break;
+}
+case TIMER_PRESCALER_256 :{
+if(Timer_Count < MAX0){
+TCCR0 |=TIMER0_PRESCALER_256_CONFIG;
+TCNT0 =MAX0 - Timer_count;
+}else
+{
+return E_NOK;
+}
+break;
+}
+case TIMER_PRESCALER_1024 :{
+if(Timer_Count < MAX0){
+TCCR0 |=TIMER0_PRESCALER_1024_CONFIG;
+TCNT0 =MAX0 - Timer_count;
+}else
+{
+return E_NOK;
+}
+break;
 
+}
+defult :
+return E_NOK;
+}
+
+return E_OK;
+}
+case TIMER_CH1:{
+
+
+
+  return E_OK;
+}
+case TIMER_CH2:{
+  switch(Timer_cfg->Timer_Prescaler){
+    case TIMER_PRESCALER_NO :
+    {
+      if(Timer_Count < MAX0){
+          TCCR0 |= TIMER_PRESCALER_NO;
+          TCNT0 = MAX0 - Timer_count;
+                            }
+                            else
+                             {
+                               return E_NOK;
+                             }
+         break;
+    }
+  case TIMER_PRESCALER_8 :
+  {
+          if(Timer_Count < MAX0)
+            {
+           TCCR0 |=TIMER0_PRESCALER_8_CONFIG;
+           TCNT0 =MAX0 - Timer_count;
+            }
+            else
+            {
+             return E_NOK;
+            }
+       break;
+  }
+  case TIMER_PRESCALER_64 :
+  {
+       if(Timer_Count < MAX0)
+       {
+       TCCR0 |=TIMER0_PRESCALER_64_CONFIG;
+       TCNT0 =MAX0 - Timer_count;
+      }
+      else
+      {
+  return E_NOK;
+  }
+  break;
+  }
+  case TIMER_PRESCALER_256 :{
+  if(Timer_Count < MAX0){
+  TCCR0 |=TIMER0_PRESCALER_256_CONFIG;
+  TCNT0 =MAX0 - Timer_count;
+  }else
+  {
+  return E_NOK;
+  }
+  break;
+  }
+  case TIMER_PRESCALER_1024 :{
+  if(Timer_Count < MAX0){
+  TCCR0 |=TIMER0_PRESCALER_1024_CONFIG;
+  TCNT0 =MAX0 - Timer_count;
+  }else
+  {
+  return E_NOK;
+  }
+  break;
+
+  }
+  defult :
+  return E_NOK;
+  }
+return E_OK;
+}
+defult:
+return E_NOK;
+}
 
 
 }
@@ -253,7 +429,25 @@ ERROR_STATUS Timer_Start(uint8_t Timer_CH_NO, uint16_t Timer_Count)
  */
 ERROR_STATUS Timer_Stop(uint8_t Timer_CH_NO)
 {
-
+switch (Timer_CH_NO) {
+  case TIMER_CH0:
+  {
+TCCR0 &=0xF8;
+  return E_OK;
+  }
+  case TIMER_CH1:
+  {
+TCCR1 &=0xFFF8;
+  return E_OK;
+  }
+   case TIMER_CH2:
+    {
+TCCR2 &= 0xF8;
+  return E_OK;
+    }
+  defult :
+  return E_NOK;
+}
 
 
 
@@ -273,6 +467,8 @@ ERROR_STATUS Timer_GetStatus(uint8_t Timer_CH_NO,boolen* Data)
 
 
 
+
+
 }
 /**
  * Input:
@@ -286,8 +482,27 @@ ERROR_STATUS Timer_GetStatus(uint8_t Timer_CH_NO,boolen* Data)
  */
 ERROR_STATUS Timer_GetValue(uint8_t Timer_CH_NO, uint16_t* Data)
 {
+  switch (Timer_CH_NO) {
+    case TIMER_CH0:
+    {
+  *Data =TCNT0;
+    return E_OK;
+    }
+    case TIMER_CH1:
+    {
+      *Data=TCNT1;
+    return E_OK;
+    }
+     case TIMER_CH2:
+      {
+  *Data=TCNT2;
+    return E_OK;
+      }
+    defult :
+    return E_NOK;
 
 
+  }
 
 
 }
