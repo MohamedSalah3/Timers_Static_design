@@ -46,6 +46,9 @@ typedef struct Timer_cfg_s
 #define T0_COUNTER_RISING_MODE_CONFIG  0x0D
 #define T0_COUNTER_FALLING_MODE_CONFIG  0x0C
 
+#define T2_COUNTER_RISING_MODE_CONFIG  0x0D
+#define T2_COUNTER_FALLING_MODE_CONFIG  0x0C
+
 
 #define T1_COUNTER_RISING_MODE_CONFIG  0x0007
 #define T1_COUNTER_FALLING_MODE_CONFIG  0x0006
@@ -62,6 +65,10 @@ typedef struct Timer_cfg_s
 #define   T1_INTERRUPT_DISABLE    0xC3
 #define 	T1_INTERRUPT_NORMAL     0x04
 #define   T1_NORMAL_MODE_CONFIG  0x0000
+
+#define   T2_INTERRUPT_DISABLE    0x3F
+#define 	T2_INTERRUPT_NORMAL     0xC0
+#define   T2_NORMAL_MODE_CONFIG  	0x00
 
 
 #define		TIMER_NO_CLOCK					0
@@ -87,7 +94,7 @@ typedef struct Timer_cfg_s
 #define TIMER1_PRESCALER_8_CONFIG    2
 #define TIMER1_PRESCALER_NO_CONFIG   1
 /***********************************************/
-#define  ERROR_STATUS uint8_t;
+#define  ERROR_STATUS uint8_t
 #define E_OK   0
 #define E_NOK  1
 #define TOV0      0

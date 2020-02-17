@@ -59,7 +59,7 @@ ERROR_STATUS Timer_Stop(uint8_t Timer_CH_NO);
  * Description: This function is used to return if the flag of the timer is raised or not.
  *
  */
-ERROR_STATUS Timer_GetStatus(uint8_t Timer_CH_NO, boolen* Data);
+ERROR_STATUS Timer_GetStatus(uint8_t Timer_CH_NO, uint8_t* Data);
 
 /**
  * Input:

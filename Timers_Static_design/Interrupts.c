@@ -29,12 +29,10 @@ ptr_to_Fun SPM_RDY;
 
 void G_interrupt_Enable(void)
 {
-//	sei();
  SREG |=(0x80);
 }
 void EX_interrupt_enable2(void)
 {
-gpioPinDirection(GPIOB,BIT2,LOW);
 SET_BIT(GICR,INT2);
 SET_BIT(MCUCSR,6);
 }

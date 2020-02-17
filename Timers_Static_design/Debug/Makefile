@@ -35,6 +35,7 @@ SUBDIRS :=
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
+../Interrupts.c \
 ../Timer.c \
 ../Timers_Static_design.c \
 ../Timer_Config.c
@@ -47,24 +48,28 @@ ASM_SRCS +=
 
 
 OBJS +=  \
+Interrupts.o \
 Timer.o \
 Timers_Static_design.o \
 Timer_Config.o
 
 
 OBJS_AS_ARGS +=  \
+Interrupts.o \
 Timer.o \
 Timers_Static_design.o \
 Timer_Config.o
 
 
 C_DEPS +=  \
+Interrupts.d \
 Timer.d \
 Timers_Static_design.d \
 Timer_Config.d
 
 
 C_DEPS_AS_ARGS +=  \
+Interrupts.d \
 Timer.d \
 Timers_Static_design.d \
 Timer_Config.d
@@ -79,6 +84,8 @@ ADDITIONAL_DEPENDENCIES:=
 OUTPUT_FILE_DEP:= ./makedep.mk
 
 # AVR32/GNU C Compiler
+
+
 
 
 

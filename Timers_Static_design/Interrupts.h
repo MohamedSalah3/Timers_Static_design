@@ -8,11 +8,11 @@
 
 #ifndef INTERRUPTS_H_
 #define INTERRUPTS_H_
-#include "pushButton.h"
+//#include "pushButton.h"
 #include "registers.h"
-#include "timers.h"
-#include "gpio.h"
-#include "uart.h"
+//#include "timers.h"
+//#include "gpio.h"
+//#include "uart.h"
 
 typedef void (*ptr_to_Fun)(void);
 extern ptr_to_Fun INT0_external_interrupt;
