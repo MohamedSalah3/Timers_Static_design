@@ -15,17 +15,17 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
   5 .debug_aranges 000000e0  00000000  00000000  00001588  2**3
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   00001033  00000000  00000000  00001668  2**0
+  6 .debug_info   0000101b  00000000  00000000  00001668  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 000004e1  00000000  00000000  0000269b  2**0
+  7 .debug_abbrev 00000474  00000000  00000000  00002683  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   000006e8  00000000  00000000  00002b7c  2**0
+  8 .debug_line   00000654  00000000  00000000  00002af7  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  0000080c  00000000  00000000  00003264  2**2
+  9 .debug_frame  0000080c  00000000  00000000  0000314c  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    000004f0  00000000  00000000  00003a70  2**0
+ 10 .debug_str    000004a6  00000000  00000000  00003958  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    00001556  00000000  00000000  00003f60  2**0
+ 11 .debug_loc    00001556  00000000  00000000  00003dfe  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -3012,41 +3012,34 @@ return Ret;
 00000d64 <main>:
 
 #include "DIO.h"
-#include "avr/delay.h"
+#include "Timer.h"
 int main(void)
-{uint8_t error,err;
-	 err=DIO_init (&Dio_configuration);
- d64:	80 e6       	ldi	r24, 0x60	; 96
+{uint8_t error;
+	 error = Timer_Init(&Timer_Configuration);
+ d64:	83 e6       	ldi	r24, 0x63	; 99
  d66:	90 e0       	ldi	r25, 0x00	; 0
- d68:	0e 94 49 00 	call	0x92	; 0x92 <DIO_init>
-      error=DIO_Write (GPIOB,UPPER_NIBBLE,HIGH);
- d6c:	81 e0       	ldi	r24, 0x01	; 1
- d6e:	60 ef       	ldi	r22, 0xF0	; 240
- d70:	4f ef       	ldi	r20, 0xFF	; 255
- d72:	0e 94 a0 00 	call	0x140	; 0x140 <DIO_Write>
-	#else
-		//round up by default
-		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
-	#endif
-
-	__builtin_avr_delay_cycles(__ticks_dc);
- d76:	8f ef       	ldi	r24, 0xFF	; 255
- d78:	90 e7       	ldi	r25, 0x70	; 112
- d7a:	a2 e0       	ldi	r26, 0x02	; 2
- d7c:	81 50       	subi	r24, 0x01	; 1
- d7e:	90 40       	sbci	r25, 0x00	; 0
- d80:	a0 40       	sbci	r26, 0x00	; 0
- d82:	e1 f7       	brne	.-8      	; 0xd7c <main+0x18>
- d84:	00 c0       	rjmp	.+0      	; 0xd86 <main+0x22>
- d86:	00 00       	nop
+ d68:	0e 94 43 04 	call	0x886	; 0x886 <Timer_Init>
+	 DIO_init (&Dio_configuration);
+ d6c:	80 e6       	ldi	r24, 0x60	; 96
+ d6e:	90 e0       	ldi	r25, 0x00	; 0
+ d70:	0e 94 49 00 	call	0x92	; 0x92 <DIO_init>
+     DIO_Write (GPIOB,UPPER_NIBBLE,HIGH);
+ d74:	81 e0       	ldi	r24, 0x01	; 1
+ d76:	60 ef       	ldi	r22, 0xF0	; 240
+ d78:	4f ef       	ldi	r20, 0xFF	; 255
+ d7a:	0e 94 a0 00 	call	0x140	; 0x140 <DIO_Write>
 	while(1)
     {
-    	_delay_ms(1000);
+	Timer_Start(TIMER_CH2,200);	
+ d7e:	82 e0       	ldi	r24, 0x02	; 2
+ d80:	68 ec       	ldi	r22, 0xC8	; 200
+ d82:	70 e0       	ldi	r23, 0x00	; 0
+ d84:	0e 94 44 05 	call	0xa88	; 0xa88 <Timer_Start>
 	  error=DIO_Toggle(GPIOB,UPPER_NIBBLE);
  d88:	81 e0       	ldi	r24, 0x01	; 1
  d8a:	60 ef       	ldi	r22, 0xF0	; 240
  d8c:	0e 94 09 01 	call	0x212	; 0x212 <DIO_Toggle>
- d90:	f2 cf       	rjmp	.-28     	; 0xd76 <main+0x12>
+ d90:	f6 cf       	rjmp	.-20     	; 0xd7e <main+0x1a>
 
 00000d92 <_exit>:
  d92:	f8 94       	cli

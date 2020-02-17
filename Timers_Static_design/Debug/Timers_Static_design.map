@@ -424,42 +424,42 @@ LOAD c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x1033
+.debug_info     0x00000000     0x101b
  *(.debug_info)
  .debug_info    0x00000000      0x206 DIO.o
  .debug_info    0x00000206       0xbd DIO_config.o
  .debug_info    0x000002c3      0x4e6 Interrupts.o
  .debug_info    0x000007a9      0x38c Timer.o
- .debug_info    0x00000b35      0x186 Timers_Static_design.o
- .debug_info    0x00000cbb       0xe1 Timer_Config.o
- .debug_info    0x00000d9c       0xdd c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_exit.o)
- .debug_info    0x00000e79       0xdd c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_copy_data.o)
- .debug_info    0x00000f56       0xdd c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_clear_bss.o)
+ .debug_info    0x00000b35      0x16e Timers_Static_design.o
+ .debug_info    0x00000ca3       0xe1 Timer_Config.o
+ .debug_info    0x00000d84       0xdd c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_exit.o)
+ .debug_info    0x00000e61       0xdd c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_copy_data.o)
+ .debug_info    0x00000f3e       0xdd c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_clear_bss.o)
  *(.gnu.linkonce.wi.*)
 
-.debug_abbrev   0x00000000      0x4e1
+.debug_abbrev   0x00000000      0x474
  *(.debug_abbrev)
  .debug_abbrev  0x00000000       0xd8 DIO.o
  .debug_abbrev  0x000000d8       0x75 DIO_config.o
  .debug_abbrev  0x0000014d       0xa1 Interrupts.o
  .debug_abbrev  0x000001ee      0x129 Timer.o
- .debug_abbrev  0x00000317      0x118 Timers_Static_design.o
- .debug_abbrev  0x0000042f       0x76 Timer_Config.o
- .debug_abbrev  0x000004a5       0x14 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_exit.o)
- .debug_abbrev  0x000004b9       0x14 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_copy_data.o)
- .debug_abbrev  0x000004cd       0x14 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_clear_bss.o)
+ .debug_abbrev  0x00000317       0xab Timers_Static_design.o
+ .debug_abbrev  0x000003c2       0x76 Timer_Config.o
+ .debug_abbrev  0x00000438       0x14 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_exit.o)
+ .debug_abbrev  0x0000044c       0x14 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_copy_data.o)
+ .debug_abbrev  0x00000460       0x14 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_clear_bss.o)
 
-.debug_line     0x00000000      0x6e8
+.debug_line     0x00000000      0x654
  *(.debug_line)
  .debug_line    0x00000000       0xfc DIO.o
  .debug_line    0x000000fc       0x4e DIO_config.o
  .debug_line    0x0000014a       0xb4 Interrupts.o
  .debug_line    0x000001fe      0x1d7 Timer.o
- .debug_line    0x000003d5      0x11a Timers_Static_design.o
- .debug_line    0x000004ef       0x52 Timer_Config.o
- .debug_line    0x00000541       0x88 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_exit.o)
- .debug_line    0x000005c9       0x91 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_copy_data.o)
- .debug_line    0x0000065a       0x8e c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_clear_bss.o)
+ .debug_line    0x000003d5       0x86 Timers_Static_design.o
+ .debug_line    0x0000045b       0x52 Timer_Config.o
+ .debug_line    0x000004ad       0x88 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_exit.o)
+ .debug_line    0x00000535       0x91 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_copy_data.o)
+ .debug_line    0x000005c6       0x8e c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_clear_bss.o)
 
 .debug_frame    0x00000000      0x80c
  *(.debug_frame)
@@ -468,7 +468,7 @@ LOAD c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1
  .debug_frame   0x00000778       0x70 Timer.o
  .debug_frame   0x000007e8       0x24 Timers_Static_design.o
 
-.debug_str      0x00000000      0x4f0
+.debug_str      0x00000000      0x4a6
  *(.debug_str)
  .debug_str     0x00000000      0x116 DIO.o
                                 0x150 (size before relaxing)
@@ -478,9 +478,9 @@ LOAD c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1
                                 0x31b (size before relaxing)
  .debug_str     0x0000036c       0xeb Timer.o
                                 0x1f4 (size before relaxing)
- .debug_str     0x00000457       0x71 Timers_Static_design.o
-                                0x174 (size before relaxing)
- .debug_str     0x000004c8       0x28 Timer_Config.o
+ .debug_str     0x00000457       0x3b Timers_Static_design.o
+                                0x19a (size before relaxing)
+ .debug_str     0x00000492       0x14 Timer_Config.o
                                 0x161 (size before relaxing)
 
 .debug_loc      0x00000000     0x1556

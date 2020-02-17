@@ -6,14 +6,15 @@
  */ 
 
 #include "DIO.h"
-#include "avr/delay.h"
+#include "Timer.h"
 int main(void)
-{uint8_t error,err;
-	 err=DIO_init (&Dio_configuration);
-      error=DIO_Write (GPIOB,UPPER_NIBBLE,HIGH);
+{uint8_t error;
+	 error = Timer_Init(&Timer_Configuration);
+	 DIO_init (&Dio_configuration);
+     DIO_Write (GPIOB,UPPER_NIBBLE,HIGH);
 	while(1)
     {
-    	_delay_ms(1000);
+	Timer_Start(TIMER_CH2,200);	
 	  error=DIO_Toggle(GPIOB,UPPER_NIBBLE);
 	  
     }
